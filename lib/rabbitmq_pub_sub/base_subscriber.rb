@@ -18,10 +18,8 @@ module RabbitmqPubSub
       channel.close
     end
 
-    private
-
     def validate_payload!(payload)
-      if payload.blank? ||
+      if payload.empty? ||
          payload.nil? ||
          !payload.is_a?(String)
         raise StandardError, "Invalid payload value:#{payload}"
@@ -31,14 +29,15 @@ module RabbitmqPubSub
     end
 
     def validate_headers!(headers)
-      if headers.blank? ||
-         headers.nil? ||
+      if headers.nil? ||
          !headers.key?(:status_code)
         raise StandardError, "Invalid headers value:#{headers}"
       end
 
       true
     end
+
+    private
 
     def handle_response
       lambda do |_delivery_info, properties, request_payload|
